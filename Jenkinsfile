@@ -54,6 +54,21 @@ pipeline {
 
         }
 
+
+        stage('RUN APP') {
+
+            steps {
+
+                bat '''
+                call venv\\Scripts\\activate
+
+                python app.py
+                '''
+
+            }
+
+        }
+
     }
 
 }
