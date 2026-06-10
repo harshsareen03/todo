@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -11,6 +12,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
+                python3 -m pip install --upgrade pip
                 python3 -m pip install -r requirements.txt
                 '''
             }
@@ -33,7 +35,8 @@ pipeline {
         stage('Run App') {
             steps {
                 sh '''
-                nohup python3 app.py > flask.log 2>&1 &
+                nohup python3 app.py > app.log 2>&1 &
+                sleep 5
                 '''
             }
         }
