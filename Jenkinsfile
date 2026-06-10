@@ -60,7 +60,7 @@ pipeline {
             steps {
 
                 bat '''
-                call venv\\Scripts\\activate
+                source venv\\bin\\activate
 
                 python app.py
                 '''
