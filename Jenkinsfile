@@ -1,74 +1,35 @@
 pipeline {
-
     agent any
 
     stages {
 
         stage('Checkout') {
-
             steps {
-
                 checkout scm
-
             }
-
         }
 
         stage('Install Dependencies') {
-
             steps {
-
-                bat '''
-                python -m venv venv
-
-                call venv\\Scripts\\activate
-
-                pip install -r requirements.txt
+                sh '''
+                python3 -m pip install --upgrade pip
+                python3 -m pip install -r requirements.txt
                 '''
-
             }
-
         }
 
         stage('Run Tests') {
-
             steps {
-
-                bat '''
-                call venv\\Scripts\\activate
-
-                pytest
+                sh '''
+                python3 -m pytest -v
                 '''
-
             }
-
         }
 
         stage('Build') {
-
             steps {
-
                 echo 'Build Successful'
-
             }
-
         }
-
-
-        stage('RUN APP') {
-
-            steps {
-
-                bat '''
-                source venv\\bin\\activate
-
-                python app.py
-                '''
-
-            }
-
-        }
-
     }
-
 }
